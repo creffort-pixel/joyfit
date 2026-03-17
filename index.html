@@ -26,6 +26,9 @@
         <label for="log-date">날짜:</label>
         <input type="date" id="log-date">
       </div>
+      <div class="program-selector">
+        <select id="program-select" onchange="onProgramSelect()"></select>
+      </div>
       <div id="progress-bar-wrap">
         <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
         <span id="progress-text" class="progress-text"></span>
@@ -50,12 +53,33 @@
       <div id="history-list"></div>
     </section>
 
-    <!-- 탭3: 운동 설명 -->
-    <section id="tab-guide" class="tab-content">
-      <h2 class="section-title">🏃 유산소 머신</h2>
-      <div id="guide-cardio"></div>
-      <h2 class="section-title">💪 근력 머신</h2>
-      <div id="guide-strength"></div>
+    <!-- 탭3: 프로그램 관리 -->
+    <section id="tab-programs" class="tab-content">
+      <div id="program-manager">
+        <div class="pm-header">
+          <h2 class="section-title">내 프로그램</h2>
+          <button class="btn-new-program" onclick="createNewProgram()">+ 새 프로그램</button>
+        </div>
+        <div id="program-cards"></div>
+
+        <h2 class="section-title" style="margin-top:24px">📖 운동 설명</h2>
+        <div id="guide-list"></div>
+      </div>
+
+      <!-- 프로그램 편집 화면 -->
+      <div id="program-editor" style="display:none">
+        <div class="editor-header">
+          <button class="btn-back" onclick="closeEditor()">← 돌아가기</button>
+          <button class="btn-delete-program" id="btn-delete-prog" onclick="deleteProgram()">삭제</button>
+        </div>
+        <div class="editor-field">
+          <label>프로그램 이름</label>
+          <input type="text" id="edit-prog-name" placeholder="예: 전신 운동">
+        </div>
+        <div id="edit-steps"></div>
+        <button class="btn-add-step" onclick="addEditorStep()">+ 운동 추가</button>
+        <button class="btn-save-program" onclick="saveProgram()">저장</button>
+      </div>
     </section>
   </main>
 
@@ -68,9 +92,9 @@
       <span class="tab-icon">📊</span>
       <span class="tab-label">기록 보기</span>
     </button>
-    <button class="tab-btn" data-tab="guide" onclick="switchTab('guide')">
-      <span class="tab-icon">📖</span>
-      <span class="tab-label">운동 설명</span>
+    <button class="tab-btn" data-tab="programs" onclick="switchTab('programs')">
+      <span class="tab-icon">📋</span>
+      <span class="tab-label">프로그램</span>
     </button>
   </nav>
 
@@ -86,7 +110,6 @@
     </div>
   </div>
 
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
   <script src="app.js"></script>
