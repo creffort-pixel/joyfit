@@ -58,6 +58,13 @@ body {
   margin-bottom: 8px;
 }
 
+.sync-status {
+  font-size: 10px;
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
 #user-toggle {
   display: flex;
   gap: 8px;

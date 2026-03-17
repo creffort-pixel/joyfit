@@ -13,6 +13,7 @@
   <!-- 헤더 -->
   <header id="app-header">
     <h1>JoyFit 아자부주반</h1>
+    <div id="sync-status" class="sync-status"></div>
     <div id="user-toggle">
       <button class="user-btn active" data-user="husband" onclick="switchUser('husband')">🧔 남편</button>
       <button class="user-btn" data-user="wife" onclick="switchUser('wife')">👩 아내</button>
@@ -50,6 +51,11 @@
         <select id="history-equipment-filter">
           <option value="all">전체 기구</option>
         </select>
+        <div class="filter-row">
+          <label class="toggle-label">
+            <input type="checkbox" id="history-show-both" checked> 두 사람 모두 보기
+          </label>
+        </div>
       </div>
       <div id="history-list"></div>
     </section>
@@ -104,6 +110,9 @@
     </div>
   </div>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

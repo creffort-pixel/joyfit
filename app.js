@@ -175,6 +175,31 @@ const EQUIPMENT = [
   }
 ];
 
+// ===== Firebase 초기화 =====
+// TODO: 아래 설정을 Firebase 콘솔에서 복사한 값으로 교체하세요
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "YOUR_APP_ID"
+};
+
+let db = null;
+let firebaseReady = false;
+
+try {
+  if (typeof firebase !== 'undefined' && firebaseConfig.apiKey !== 'YOUR_API_KEY') {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    firebaseReady = true;
+  }
+} catch (e) {
+  console.warn('Firebase 초기화 실패, localStorage만 사용합니다:', e);
+}
+
 // ===== 상태 관리 =====
 let currentUser = localStorage.getItem('joyfit_currentUser') || 'husband';
 let currentModalEquipment = null;
@@ -187,6 +212,10 @@ function getTodayStr() {
     String(d.getDate()).padStart(2, '0');
 }
 
+function logKey(date, equipmentId, user) {
+  return `${date}_${equipmentId}_${user}`;
+}
+
 function loadLogs() {
   try {
     return JSON.parse(localStorage.getItem('joyfit_logs')) || [];
@@ -197,6 +226,60 @@ function loadLogs() {
 
 function saveLogs(logs) {
   localStorage.setItem('joyfit_logs', JSON.stringify(logs));
+}
+
+function saveLogToFirebase(entry) {
+  if (!firebaseReady) return;
+  const key = logKey(entry.date, entry.equipmentId, entry.user);
+  db.ref('logs/' + key).set(entry).catch(err => {
+    console.warn('Firebase 저장 실패:', err);
+  });
+}
+
+function deleteLogFromFirebase(date, equipmentId, user) {
+  if (!firebaseReady) return;
+  const key = logKey(date, equipmentId, user);
+  db.ref('logs/' + key).remove().catch(err => {
+    console.warn('Firebase 삭제 실패:', err);
+  });
+}
+
+function mergeLogs(localLogs, firebaseLogs) {
+  const map = {};
+  localLogs.forEach(l => {
+    map[logKey(l.date, l.equipmentId, l.user)] = l;
+  });
+  firebaseLogs.forEach(l => {
+    const key = logKey(l.date, l.equipmentId, l.user);
+    if (!map[key] || (l.updatedAt >= (map[key].updatedAt || ''))) {
+      map[key] = l;
+    }
+  });
+  return Object.values(map);
+}
+
+function startFirebaseSync() {
+  if (!firebaseReady) return;
+
+  db.ref('logs').on('value', snapshot => {
+    const data = snapshot.val();
+    const firebaseLogs = data ? Object.values(data) : [];
+    saveLogs(firebaseLogs);
+
+    // 현재 활성 탭 다시 렌더링
+    const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
+    if (activeTab === 'today') renderTodayTab();
+    if (activeTab === 'history') renderHistoryTab();
+    if (currentModalEquipment) loadModalSets();
+  });
+
+  // 연결 상태 표시
+  const statusEl = document.getElementById('sync-status');
+  if (statusEl) {
+    firebase.database().ref('.info/connected').on('value', snap => {
+      statusEl.textContent = snap.val() ? '동기화 중' : '오프라인';
+    });
+  }
 }
 
 function getEquipment(id) {
@@ -230,7 +313,6 @@ function switchUser(user) {
 
   document.body.classList.toggle('wife-mode', user === 'wife');
 
-  // 현재 활성 탭 다시 렌더링
   const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
   if (activeTab === 'today') renderTodayTab();
   if (activeTab === 'history') renderHistoryTab();
@@ -299,12 +381,8 @@ function openEquipmentModal(equipmentId) {
     </iframe>
   `;
 
-  // 날짜 설정
   document.getElementById('modal-date').value = getTodayStr();
-
-  // 기존 기록 로드 또는 빈 세트
   loadModalSets();
-
   document.getElementById('equipment-modal').classList.add('open');
 }
 
@@ -319,14 +397,12 @@ function loadModalSets() {
   setsDiv.innerHTML = '';
 
   if (currentModalEquipment.category === 'cardio') {
-    // 유산소: 시간 + 거리
     if (existing && existing.sets.length > 0) {
       existing.sets.forEach((s, i) => addCardioSetRow(s.duration || '', s.distance || '', s.speed || ''));
     } else {
       addCardioSetRow('', '', '');
     }
   } else {
-    // 근력: 무게 + 횟수
     if (existing && existing.sets.length > 0) {
       existing.sets.forEach((s, i) => addStrengthSetRow(s.weight || '', s.reps || ''));
     } else {
@@ -381,7 +457,6 @@ function addSetRow() {
 function removeSetRow(btn) {
   const row = btn.closest('.set-row');
   row.remove();
-  // 세트 번호 업데이트
   const setsDiv = document.getElementById('modal-sets');
   setsDiv.querySelectorAll('.set-row').forEach((r, i) => {
     const label = r.querySelector('.set-label');
@@ -441,17 +516,16 @@ function saveSets() {
   }
 
   saveLogs(logs);
+  saveLogToFirebase(entry);
   showToast('저장되었습니다!');
   closeModal();
 
-  // 오늘 탭이면 다시 렌더링
   const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
   if (activeTab === 'today') renderTodayTab();
 }
 
 function closeModal() {
   document.getElementById('equipment-modal').classList.remove('open');
-  // 동영상 정지
   document.getElementById('modal-video').innerHTML = '';
   currentModalEquipment = null;
 }
@@ -460,7 +534,6 @@ function closeModalOverlay(event) {
   if (event.target === event.currentTarget) closeModal();
 }
 
-// 모달 날짜 변경 시 기록 다시 로드
 document.getElementById('modal-date').addEventListener('change', function() {
   if (currentModalEquipment) loadModalSets();
 });
@@ -524,7 +597,6 @@ function renderTodayTab() {
   }).join('');
 }
 
-// 날짜 변경 이벤트
 document.getElementById('log-date').addEventListener('change', renderTodayTab);
 
 // ===== 장비 선택 모달 =====
@@ -578,8 +650,14 @@ function renderHistoryTab() {
   const startDate = document.getElementById('history-start').value;
   const endDate = document.getElementById('history-end').value;
   const equipFilter = document.getElementById('history-equipment-filter').value;
+  const showBoth = document.getElementById('history-show-both')?.checked;
 
   let logs = loadLogs();
+
+  // 사용자 필터
+  if (!showBoth) {
+    logs = logs.filter(l => l.user === currentUser);
+  }
 
   // 날짜 필터
   if (startDate) logs = logs.filter(l => l.date >= startDate);
@@ -664,6 +742,7 @@ function deleteLog(date, equipmentId, user) {
   let logs = loadLogs();
   logs = logs.filter(l => !(l.date === date && l.equipmentId === equipmentId && l.user === user));
   saveLogs(logs);
+  deleteLogFromFirebase(date, equipmentId, user);
   showToast('삭제되었습니다');
   renderHistoryTab();
 }
@@ -672,6 +751,7 @@ function deleteLog(date, equipmentId, user) {
 document.getElementById('history-start').addEventListener('change', renderHistoryTab);
 document.getElementById('history-end').addEventListener('change', renderHistoryTab);
 document.getElementById('history-equipment-filter').addEventListener('change', renderHistoryTab);
+document.getElementById('history-show-both').addEventListener('change', renderHistoryTab);
 
 // 장비 필터 옵션 생성
 function populateEquipmentFilter() {
@@ -686,19 +766,12 @@ function populateEquipmentFilter() {
 
 // ===== 초기화 =====
 function initApp() {
-  // 사용자 상태 복원
   switchUser(currentUser);
-
-  // 장비 목록 렌더링
   renderEquipmentList();
-
-  // 필터 옵션 생성
   populateEquipmentFilter();
 
-  // 오늘 날짜 기본값
   document.getElementById('log-date').value = getTodayStr();
 
-  // 기록 기간 기본값 (최근 30일)
   const today = getTodayStr();
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
@@ -707,6 +780,19 @@ function initApp() {
     String(thirtyDaysAgo.getMonth() + 1).padStart(2, '0') + '-' +
     String(thirtyDaysAgo.getDate()).padStart(2, '0');
   document.getElementById('history-end').value = today;
+
+  // Firebase 동기화 시작
+  if (firebaseReady) {
+    // 기존 localStorage 데이터를 Firebase로 마이그레이션
+    const localLogs = loadLogs();
+    localLogs.forEach(entry => saveLogToFirebase(entry));
+
+    // 실시간 동기화 리스너 시작
+    startFirebaseSync();
+  } else {
+    const statusEl = document.getElementById('sync-status');
+    if (statusEl) statusEl.textContent = '오프라인 모드 (Firebase 미설정)';
+  }
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
