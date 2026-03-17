@@ -482,7 +482,7 @@ function renderHistory() {
     html += `<div class="history-day-group"><div class="history-day-title">${formatDate(date)}</div>`;
     grouped[date].forEach(log => {
       const e = eq(log.equipmentId); if (!e) return;
-      const userLabel = log.user === 'husband' ? '🧔 남편' : '👩 아내';
+      const userLabel = log.user === 'husband' ? '🧔 정환' : '👩 고은';
       let setsHtml = '';
       if (e.category === 'cardio') {
         setsHtml = log.sets.map(s => `<div class="set-row-display"><span>${s.duration||0}분 / ${s.distance||0}km</span></div>`).join('');
