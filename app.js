@@ -178,13 +178,14 @@ const EQUIPMENT = [
 // ===== Firebase 초기화 =====
 // TODO: 아래 설정을 Firebase 콘솔에서 복사한 값으로 교체하세요
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBXkcPEgrKuJ-0K0HmZ2Rkc-oQwXIVMjeQ",
+  authDomain: "joyfit-15059.firebaseapp.com",
+  databaseURL: "https://joyfit-15059-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "joyfit-15059",
+  storageBucket: "joyfit-15059.firebasestorage.app",
+  messagingSenderId: "791685455378",
+  appId: "1:791685455378:web:b7518461f3daf94ffe02cb",
+  measurementId: "G-DZ8RTSLWK8"
 };
 
 let db = null;
