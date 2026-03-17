@@ -471,7 +471,7 @@ function renderTodayTab() {
   if (!dateInput.value) dateInput.value = getTodayStr();
 
   const date = dateInput.value;
-  const logs = loadLogs().filter(l => l.date === date && l.user === currentUser);
+  const logs = loadLogs().filter(l => l.date === date);
   const summaryDiv = document.getElementById('today-summary');
 
   if (logs.length === 0) {
@@ -488,6 +488,9 @@ function renderTodayTab() {
   summaryDiv.innerHTML = logs.map(log => {
     const eq = getEquipment(log.equipmentId);
     if (!eq) return '';
+
+    const userLabel = log.user === 'husband' ? '🧔' : '👩';
+    const userClass = log.user;
 
     let setsHtml = '';
     if (eq.category === 'cardio') {
@@ -510,7 +513,7 @@ function renderTodayTab() {
       <div class="today-card">
         <div class="tc-header">
           <div>
-            <div class="tc-title">${eq.name}</div>
+            <div class="tc-title">${eq.name} <span class="hi-user ${userClass}">${userLabel}</span></div>
             <div class="tc-subtitle">${eq.labelKo}</div>
           </div>
           <button class="tc-add-btn" onclick="openEquipmentModal('${eq.id}')">+</button>
@@ -575,14 +578,8 @@ function renderHistoryTab() {
   const startDate = document.getElementById('history-start').value;
   const endDate = document.getElementById('history-end').value;
   const equipFilter = document.getElementById('history-equipment-filter').value;
-  const showBoth = document.getElementById('history-show-both').checked;
 
   let logs = loadLogs();
-
-  // 사용자 필터
-  if (!showBoth) {
-    logs = logs.filter(l => l.user === currentUser);
-  }
 
   // 날짜 필터
   if (startDate) logs = logs.filter(l => l.date >= startDate);
@@ -647,7 +644,7 @@ function renderHistoryTab() {
         <div class="history-item">
           <div class="hi-header">
             <span class="hi-name">${eq.name} <small style="color:#6E6E73">${eq.labelKo}</small></span>
-            ${showBoth ? `<span class="hi-user ${userClass}">${userLabel}</span>` : ''}
+            <span class="hi-user ${userClass}">${userLabel}</span>
             <button class="hi-delete" onclick="deleteLog('${date}','${log.equipmentId}','${log.user}')">삭제</button>
           </div>
           ${setsHtml}
@@ -675,7 +672,6 @@ function deleteLog(date, equipmentId, user) {
 document.getElementById('history-start').addEventListener('change', renderHistoryTab);
 document.getElementById('history-end').addEventListener('change', renderHistoryTab);
 document.getElementById('history-equipment-filter').addEventListener('change', renderHistoryTab);
-document.getElementById('history-show-both').addEventListener('change', renderHistoryTab);
 
 // 장비 필터 옵션 생성
 function populateEquipmentFilter() {
@@ -686,62 +682,6 @@ function populateEquipmentFilter() {
     opt.textContent = `${eq.name} (${eq.labelKo})`;
     select.appendChild(opt);
   });
-}
-
-// ===== 데이터 내보내기/가져오기 =====
-function exportData() {
-  const logs = loadLogs();
-  const data = {
-    appName: 'JoyFit 아자부주반',
-    exportedAt: new Date().toISOString(),
-    logs: logs
-  };
-
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `joyfit_backup_${getTodayStr()}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('데이터를 내보냈습니다');
-}
-
-function importData(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const data = JSON.parse(e.target.result);
-      if (!data.logs || !Array.isArray(data.logs)) {
-        showToast('올바른 파일이 아닙니다');
-        return;
-      }
-
-      const existingLogs = loadLogs();
-      let imported = 0;
-
-      data.logs.forEach(newLog => {
-        const exists = existingLogs.find(l =>
-          l.date === newLog.date && l.equipmentId === newLog.equipmentId && l.user === newLog.user
-        );
-        if (!exists) {
-          existingLogs.push(newLog);
-          imported++;
-        }
-      });
-
-      saveLogs(existingLogs);
-      showToast(`${imported}개의 기록을 가져왔습니다`);
-      renderHistoryTab();
-    } catch {
-      showToast('파일을 읽을 수 없습니다');
-    }
-  };
-  reader.readAsText(file);
-  event.target.value = '';
 }
 
 // ===== 초기화 =====

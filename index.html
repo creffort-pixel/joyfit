@@ -50,18 +50,8 @@
         <select id="history-equipment-filter">
           <option value="all">전체 기구</option>
         </select>
-        <div class="filter-row">
-          <label class="toggle-label">
-            <input type="checkbox" id="history-show-both"> 두 사람 모두 보기
-          </label>
-        </div>
       </div>
       <div id="history-list"></div>
-      <div class="export-import-bar">
-        <button class="btn-export" onclick="exportData()">📤 내보내기</button>
-        <button class="btn-import" onclick="document.getElementById('import-file').click()">📥 가져오기</button>
-        <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
-      </div>
     </section>
   </main>
 
