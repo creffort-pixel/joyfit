@@ -1,182 +1,55 @@
 // ===== 장비 데이터 =====
-const EQUIPMENT = [
-  // 유산소 머신
-  {
-    id: 'running-machine',
-    name: 'Running Machine',
-    labelKo: '런닝머신',
-    category: 'cardio',
-    units: 8,
-    youtubeSearch: 'treadmill+running+machine+how+to+use+gym',
-    youtubeId: 'njeZ29umqVE'
-  },
-  {
-    id: 'ascent-trainer',
-    name: 'Ascent Trainer',
-    labelKo: '어센트 트레이너',
-    category: 'cardio',
-    units: 2,
-    youtubeSearch: 'ascent+trainer+how+to+use',
-    youtubeId: 'y2dRMOXbPMk'
-  },
-  {
-    id: 'recumbent-bike',
-    name: 'Recumbent Bike',
-    labelKo: '리컴번트 바이크',
-    category: 'cardio',
-    units: 2,
-    youtubeSearch: 'recumbent+bike+how+to+use+gym',
-    youtubeId: 'XO0mMISa2dM'
-  },
-  {
-    id: 'spinning-bike',
-    name: 'Spinning Bike',
-    labelKo: '스피닝 바이크',
-    category: 'cardio',
-    units: 1,
-    youtubeSearch: 'spinning+bike+how+to+use+beginner',
-    youtubeId: '4TMm-GtfS3I'
-  },
-  // 근력 머신
-  {
-    id: 'chest-press',
-    name: 'Chest Press',
-    labelKo: '체스트 프레스',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'machine+chest+press+how+to+form',
-    youtubeId: 'xUm0BiZfWoC'
-  },
-  {
-    id: 'shoulder-press',
-    name: 'Shoulder Press',
-    labelKo: '숄더 프레스',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'machine+shoulder+press+how+to+form',
-    youtubeId: 'Wqq43dKoHQo'
-  },
-  {
-    id: 'chest-rear-delt',
-    name: 'Chest & Rear Delt',
-    labelKo: '체스트 & 리어 델트',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'pec+deck+rear+delt+machine+how+to',
-    youtubeId: 'D2t3pWEfZ6M'
-  },
-  {
-    id: 'glute',
-    name: 'Glute',
-    labelKo: '글루트 (엉덩이)',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'glute+machine+how+to+use+gym',
-    youtubeId: 'sqDGkIEen2Q'
-  },
-  {
-    id: 'hip-abductor-adductor',
-    name: 'Hip Abductor/Adductor',
-    labelKo: '힙 어브덕터/어덕터',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'hip+abductor+adductor+machine+how+to',
-    youtubeId: 'MpMjHEZMwVE'
-  },
-  {
-    id: 'leg-press',
-    name: 'Leg Press',
-    labelKo: '레그 프레스',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'leg+press+machine+how+to+form',
-    youtubeId: 'IZxyjW7MPJQ'
-  },
-  {
-    id: 'leg-curl',
-    name: 'Leg Curl',
-    labelKo: '레그 컬',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'lying+leg+curl+machine+how+to',
-    youtubeId: '1Tq3QdYUuHs'
-  },
-  {
-    id: 'leg-extension',
-    name: 'Leg Extension',
-    labelKo: '레그 익스텐션',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'leg+extension+machine+how+to+form',
-    youtubeId: 'YyvSfVjQeL0'
-  },
-  {
-    id: 'abdominal-crunch',
-    name: 'Abdominal Crunch',
-    labelKo: '복근 크런치 머신',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'ab+crunch+machine+how+to+form',
-    youtubeId: '2fbujeH3F0E'
-  },
-  {
-    id: 'ab-bench',
-    name: 'Ab Bench',
-    labelKo: '복근대',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'ab+bench+sit+up+bench+how+to',
-    youtubeId: 'sIqBHnSGnEw'
-  },
-  {
-    id: 'rotary-torso',
-    name: 'Rotary Torso',
-    labelKo: '로터리 토르소',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'rotary+torso+machine+how+to',
-    youtubeId: 'KesUQkfmTRE'
-  },
-  {
-    id: 'back-extension',
-    name: 'Back Extension',
-    labelKo: '백 익스텐션',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'back+extension+machine+how+to+form',
-    youtubeId: 'ph3pddpKzzw'
-  },
-  {
-    id: 'low-row',
-    name: 'Low Row',
-    labelKo: '로우 로우',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'seated+low+row+machine+how+to',
-    youtubeId: 'UCXxvVItLoM'
-  },
-  {
-    id: 'lat-pulldown',
-    name: 'Lat Pulldown',
-    labelKo: '랫 풀다운',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'lat+pulldown+machine+how+to+form',
-    youtubeId: 'CAwf7n6Luuc'
-  },
-  {
-    id: 'back-bench',
-    name: 'Back Bench',
-    labelKo: '등근대',
-    category: 'strength',
-    units: 1,
-    youtubeSearch: 'roman+chair+back+bench+how+to',
-    youtubeId: 'BbhEayKBXs0'
-  }
-];
+const EQUIPMENT = {
+  'running-machine':    { name: 'Running Machine',       labelKo: '런닝머신',           category: 'cardio',   youtubeId: 'njeZ29umqVE', youtubeSearch: 'treadmill+running+machine+how+to+use+gym' },
+  'ascent-trainer':     { name: 'Ascent Trainer',        labelKo: '어센트 트레이너',     category: 'cardio',   youtubeId: 'y2dRMOXbPMk', youtubeSearch: 'ascent+trainer+how+to+use' },
+  'recumbent-bike':     { name: 'Recumbent Bike',        labelKo: '리컴번트 바이크',     category: 'cardio',   youtubeId: 'XO0mMISa2dM', youtubeSearch: 'recumbent+bike+how+to+use+gym' },
+  'spinning-bike':      { name: 'Spinning Bike',         labelKo: '스피닝 바이크',       category: 'cardio',   youtubeId: '4TMm-GtfS3I', youtubeSearch: 'spinning+bike+how+to+use+beginner' },
+  'chest-press':        { name: 'Chest Press',           labelKo: '체스트 프레스',       category: 'strength', youtubeId: 'xUm0BiZfWoC', youtubeSearch: 'machine+chest+press+how+to+form' },
+  'shoulder-press':     { name: 'Shoulder Press',        labelKo: '숄더 프레스',         category: 'strength', youtubeId: 'Wqq43dKoHQo', youtubeSearch: 'machine+shoulder+press+how+to+form' },
+  'chest-rear-delt':    { name: 'Chest & Rear Delt',     labelKo: '체스트 & 리어 델트',  category: 'strength', youtubeId: 'D2t3pWEfZ6M', youtubeSearch: 'pec+deck+rear+delt+machine+how+to' },
+  'glute':              { name: 'Glute',                 labelKo: '글루트 (엉덩이)',     category: 'strength', youtubeId: 'sqDGkIEen2Q', youtubeSearch: 'glute+machine+how+to+use+gym' },
+  'hip-abductor-adductor': { name: 'Hip Abductor/Adductor', labelKo: '힙 어브덕터/어덕터', category: 'strength', youtubeId: 'MpMjHEZMwVE', youtubeSearch: 'hip+abductor+adductor+machine+how+to' },
+  'leg-press':          { name: 'Leg Press',             labelKo: '레그 프레스',         category: 'strength', youtubeId: 'IZxyjW7MPJQ', youtubeSearch: 'leg+press+machine+how+to+form' },
+  'leg-curl':           { name: 'Leg Curl',              labelKo: '레그 컬',             category: 'strength', youtubeId: '1Tq3QdYUuHs', youtubeSearch: 'lying+leg+curl+machine+how+to' },
+  'leg-extension':      { name: 'Leg Extension',         labelKo: '레그 익스텐션',       category: 'strength', youtubeId: 'YyvSfVjQeL0', youtubeSearch: 'leg+extension+machine+how+to+form' },
+  'abdominal-crunch':   { name: 'Abdominal Crunch',      labelKo: '복근 크런치 머신',    category: 'strength', youtubeId: '2fbujeH3F0E', youtubeSearch: 'ab+crunch+machine+how+to+form' },
+  'ab-bench':           { name: 'Ab Bench',              labelKo: '복근대',              category: 'strength', youtubeId: 'sIqBHnSGnEw', youtubeSearch: 'ab+bench+sit+up+bench+how+to' },
+  'rotary-torso':       { name: 'Rotary Torso',          labelKo: '로터리 토르소',       category: 'strength', youtubeId: 'KesUQkfmTRE', youtubeSearch: 'rotary+torso+machine+how+to' },
+  'back-extension':     { name: 'Back Extension',        labelKo: '백 익스텐션',         category: 'strength', youtubeId: 'ph3pddpKzzw', youtubeSearch: 'back+extension+machine+how+to+form' },
+  'low-row':            { name: 'Low Row',               labelKo: '로우 로우',           category: 'strength', youtubeId: 'UCXxvVItLoM', youtubeSearch: 'seated+low+row+machine+how+to' },
+  'lat-pulldown':       { name: 'Lat Pulldown',          labelKo: '랫 풀다운',           category: 'strength', youtubeId: 'CAwf7n6Luuc', youtubeSearch: 'lat+pulldown+machine+how+to+form' },
+  'back-bench':         { name: 'Back Bench',            labelKo: '등근대',              category: 'strength', youtubeId: 'BbhEayKBXs0', youtubeSearch: 'roman+chair+back+bench+how+to' }
+};
 
-// ===== Firebase 초기화 =====
-// TODO: 아래 설정을 Firebase 콘솔에서 복사한 값으로 교체하세요
+// ===== 운동 프로그램 =====
+const PROGRAMS = {
+  husband: [
+    { equipId: 'running-machine',    type: 'cardio',   duration: 30, label: '워밍업 + 유산소' },
+    { equipId: 'chest-press',        type: 'strength', sets: 3, reps: 12, label: '가슴' },
+    { equipId: 'shoulder-press',     type: 'strength', sets: 3, reps: 12, label: '어깨' },
+    { equipId: 'lat-pulldown',       type: 'strength', sets: 3, reps: 12, label: '등 (상부)' },
+    { equipId: 'low-row',            type: 'strength', sets: 3, reps: 12, label: '등 (하부)' },
+    { equipId: 'leg-press',          type: 'strength', sets: 3, reps: 12, label: '다리 (전체)' },
+    { equipId: 'leg-curl',           type: 'strength', sets: 3, reps: 10, label: '다리 (후면)' },
+    { equipId: 'leg-extension',      type: 'strength', sets: 3, reps: 10, label: '다리 (전면)' },
+    { equipId: 'abdominal-crunch',   type: 'strength', sets: 3, reps: 15, label: '복근' },
+    { equipId: 'back-extension',     type: 'strength', sets: 3, reps: 15, label: '허리' },
+  ],
+  wife: [
+    { equipId: 'ascent-trainer',     type: 'cardio',   duration: 20, label: '워밍업 + 유산소' },
+    { equipId: 'hip-abductor-adductor', type: 'strength', sets: 3, reps: 15, label: '힙 (내/외전)' },
+    { equipId: 'glute',              type: 'strength', sets: 3, reps: 15, label: '엉덩이' },
+    { equipId: 'leg-press',          type: 'strength', sets: 3, reps: 12, label: '다리 (전체)' },
+    { equipId: 'leg-curl',           type: 'strength', sets: 3, reps: 12, label: '다리 (후면)' },
+    { equipId: 'leg-extension',      type: 'strength', sets: 3, reps: 12, label: '다리 (전면)' },
+    { equipId: 'chest-rear-delt',    type: 'strength', sets: 3, reps: 12, label: '가슴 & 후면 어깨' },
+    { equipId: 'rotary-torso',       type: 'strength', sets: 3, reps: 15, label: '옆구리' },
+    { equipId: 'ab-bench',           type: 'strength', sets: 3, reps: 15, label: '복근' },
+    { equipId: 'back-extension',     type: 'strength', sets: 3, reps: 12, label: '허리' },
+  ]
+};
+
+// ===== Firebase =====
 const firebaseConfig = {
   apiKey: "AIzaSyBXkcPEgrKuJ-0K0HmZ2Rkc-oQwXIVMjeQ",
   authDomain: "joyfit-15059.firebaseapp.com",
@@ -188,611 +61,385 @@ const firebaseConfig = {
   measurementId: "G-DZ8RTSLWK8"
 };
 
-let db = null;
-let firebaseReady = false;
-
+let db = null, firebaseReady = false;
 try {
-  if (typeof firebase !== 'undefined' && firebaseConfig.apiKey !== 'YOUR_API_KEY') {
+  if (typeof firebase !== 'undefined') {
     firebase.initializeApp(firebaseConfig);
     db = firebase.database();
     firebaseReady = true;
   }
-} catch (e) {
-  console.warn('Firebase 초기화 실패, localStorage만 사용합니다:', e);
-}
+} catch (e) { console.warn('Firebase init failed:', e); }
 
-// ===== 상태 관리 =====
+// ===== 상태 =====
 let currentUser = localStorage.getItem('joyfit_currentUser') || 'husband';
-let currentModalEquipment = null;
 
 // ===== 유틸리티 =====
 function getTodayStr() {
   const d = new Date();
-  return d.getFullYear() + '-' +
-    String(d.getMonth() + 1).padStart(2, '0') + '-' +
-    String(d.getDate()).padStart(2, '0');
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 }
-
-function logKey(date, equipmentId, user) {
-  return `${date}_${equipmentId}_${user}`;
-}
+function logKey(date, equipId, user) { return `${date}_${equipId}_${user}`; }
+function eq(id) { return EQUIPMENT[id]; }
 
 function loadLogs() {
-  try {
-    return JSON.parse(localStorage.getItem('joyfit_logs')) || [];
-  } catch {
-    return [];
-  }
+  try { return JSON.parse(localStorage.getItem('joyfit_logs')) || []; }
+  catch { return []; }
 }
-
-function saveLogs(logs) {
-  localStorage.setItem('joyfit_logs', JSON.stringify(logs));
-}
+function saveLogs(logs) { localStorage.setItem('joyfit_logs', JSON.stringify(logs)); }
 
 function saveLogToFirebase(entry) {
   if (!firebaseReady) return;
-  const key = logKey(entry.date, entry.equipmentId, entry.user);
-  db.ref('logs/' + key).set(entry).catch(err => {
-    console.warn('Firebase 저장 실패:', err);
-  });
+  db.ref('logs/' + logKey(entry.date, entry.equipmentId, entry.user)).set(entry).catch(e => console.warn(e));
 }
-
-function deleteLogFromFirebase(date, equipmentId, user) {
+function deleteLogFromFirebase(date, equipId, user) {
   if (!firebaseReady) return;
-  const key = logKey(date, equipmentId, user);
-  db.ref('logs/' + key).remove().catch(err => {
-    console.warn('Firebase 삭제 실패:', err);
-  });
-}
-
-function mergeLogs(localLogs, firebaseLogs) {
-  const map = {};
-  localLogs.forEach(l => {
-    map[logKey(l.date, l.equipmentId, l.user)] = l;
-  });
-  firebaseLogs.forEach(l => {
-    const key = logKey(l.date, l.equipmentId, l.user);
-    if (!map[key] || (l.updatedAt >= (map[key].updatedAt || ''))) {
-      map[key] = l;
-    }
-  });
-  return Object.values(map);
+  db.ref('logs/' + logKey(date, equipId, user)).remove().catch(e => console.warn(e));
 }
 
 function startFirebaseSync() {
   if (!firebaseReady) return;
-
-  db.ref('logs').on('value', snapshot => {
-    const data = snapshot.val();
-    const firebaseLogs = data ? Object.values(data) : [];
-    saveLogs(firebaseLogs);
-
-    // 현재 활성 탭 다시 렌더링
-    const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
-    if (activeTab === 'today') renderTodayTab();
-    if (activeTab === 'history') renderHistoryTab();
-    if (currentModalEquipment) loadModalSets();
+  db.ref('logs').on('value', snap => {
+    const data = snap.val();
+    saveLogs(data ? Object.values(data) : []);
+    const tab = document.querySelector('.tab-btn.active')?.dataset.tab;
+    if (tab === 'today') renderProgram();
+    if (tab === 'history') renderHistory();
   });
-
-  // 연결 상태 표시
-  const statusEl = document.getElementById('sync-status');
-  if (statusEl) {
-    firebase.database().ref('.info/connected').on('value', snap => {
-      statusEl.textContent = snap.val() ? '동기화 중' : '오프라인';
-    });
-  }
-}
-
-function getEquipment(id) {
-  return EQUIPMENT.find(e => e.id === id);
+  const el = document.getElementById('sync-status');
+  if (el) firebase.database().ref('.info/connected').on('value', s => {
+    el.textContent = s.val() ? '동기화 중' : '오프라인';
+  });
 }
 
 function showToast(msg) {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
+  document.querySelector('.toast')?.remove();
   const t = document.createElement('div');
-  t.className = 'toast';
-  t.textContent = msg;
+  t.className = 'toast'; t.textContent = msg;
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 2000);
 }
 
-function formatDate(dateStr) {
-  const d = new Date(dateStr + 'T00:00:00');
-  const days = ['일', '월', '화', '수', '목', '금', '토'];
-  return `${d.getMonth() + 1}/${d.getDate()} (${days[d.getDay()]})`;
+function formatDate(ds) {
+  const d = new Date(ds + 'T00:00:00');
+  const days = ['일','월','화','수','목','금','토'];
+  return `${d.getMonth()+1}/${d.getDate()} (${days[d.getDay()]})`;
 }
 
-// ===== 사용자 전환 =====
+// ===== 사용자 / 탭 =====
 function switchUser(user) {
   currentUser = user;
   localStorage.setItem('joyfit_currentUser', user);
-
-  document.querySelectorAll('.user-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.user === user);
-  });
-
+  document.querySelectorAll('.user-btn').forEach(b => b.classList.toggle('active', b.dataset.user === user));
   document.body.classList.toggle('wife-mode', user === 'wife');
-
-  const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
-  if (activeTab === 'today') renderTodayTab();
-  if (activeTab === 'history') renderHistoryTab();
+  const tab = document.querySelector('.tab-btn.active').dataset.tab;
+  if (tab === 'today') renderProgram();
+  if (tab === 'history') renderHistory();
 }
 
-// ===== 탭 전환 =====
-function switchTab(tabName) {
+function switchTab(name) {
   document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-
-  document.getElementById('tab-' + tabName).classList.add('active');
-  document.querySelector(`.tab-btn[data-tab="${tabName}"]`).classList.add('active');
-
-  if (tabName === 'today') renderTodayTab();
-  if (tabName === 'history') renderHistoryTab();
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector(`.tab-btn[data-tab="${name}"]`).classList.add('active');
+  if (name === 'today') renderProgram();
+  if (name === 'history') renderHistory();
+  if (name === 'guide') renderGuide();
 }
 
-// ===== 탭1: 운동기구 목록 렌더링 =====
-function renderEquipmentList() {
-  const cardioList = document.getElementById('cardio-list');
-  const strengthList = document.getElementById('strength-list');
+// ===== 탭1: 오늘의 운동 프로그램 =====
+function renderProgram() {
+  const dateInput = document.getElementById('log-date');
+  if (!dateInput.value) dateInput.value = getTodayStr();
+  const date = dateInput.value;
+  const program = PROGRAMS[currentUser];
+  const logs = loadLogs();
+  const list = document.getElementById('program-list');
 
-  cardioList.innerHTML = '';
-  strengthList.innerHTML = '';
+  let completedCount = 0;
+  let html = '';
 
-  EQUIPMENT.forEach(eq => {
-    const card = document.createElement('div');
-    card.className = 'equipment-card';
-    card.onclick = () => openEquipmentModal(eq.id);
-    card.innerHTML = `
-      <div class="eq-name">${eq.name}</div>
-      <div class="eq-label">${eq.labelKo}</div>
-      <div class="eq-bottom">
-        <span class="eq-units">${eq.units}대</span>
-        <span class="eq-video-icon">▶️</span>
+  program.forEach((step, idx) => {
+    const e = eq(step.equipId);
+    const existing = logs.find(l => l.date === date && l.equipmentId === step.equipId && l.user === currentUser);
+    const isDone = existing && existing.done;
+    if (isDone) completedCount++;
+
+    if (step.type === 'cardio') {
+      html += renderCardioStep(step, e, idx, existing, isDone, date);
+    } else {
+      html += renderStrengthStep(step, e, idx, existing, isDone, date);
+    }
+  });
+
+  list.innerHTML = html;
+
+  // 진행률
+  const pct = Math.round((completedCount / program.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${completedCount}/${program.length}`;
+}
+
+function renderCardioStep(step, e, idx, existing, isDone, date) {
+  const dur = existing?.sets?.[0]?.duration || '';
+  const dist = existing?.sets?.[0]?.distance || '';
+  return `
+    <div class="step-card ${isDone ? 'done' : ''}" id="step-${idx}">
+      <div class="step-main" onclick="toggleDetail(${idx})">
+        <div class="step-check">${isDone ? '✓' : ''}</div>
+        <div class="step-info">
+          <div class="step-order">STEP ${idx+1} · ${step.label}</div>
+          <div class="step-name">${e.name}</div>
+          <div class="step-target">${step.duration}분 목표</div>
+        </div>
+        <button class="step-video-btn" onclick="event.stopPropagation();openVideo('${step.equipId}')">▶️</button>
       </div>
-    `;
-
-    if (eq.category === 'cardio') {
-      cardioList.appendChild(card);
-    } else {
-      strengthList.appendChild(card);
-    }
-  });
+      <div class="step-detail" id="detail-${idx}">
+        <div class="cardio-detail">
+          <input type="number" id="cardio-dur-${idx}" value="${dur}" placeholder="시간" inputmode="numeric">
+          <span class="set-unit">분</span>
+          <input type="number" id="cardio-dist-${idx}" value="${dist}" placeholder="거리" inputmode="decimal" step="0.1">
+          <span class="set-unit">km</span>
+          <button class="cardio-done-btn ${isDone ? 'checked' : ''}" onclick="saveCardio(${idx},'${date}','${step.equipId}')">
+            ${isDone ? '완료됨 ✓' : '완료'}
+          </button>
+        </div>
+      </div>
+    </div>`;
 }
 
-// ===== 장비 모달 =====
-function openEquipmentModal(equipmentId) {
-  const eq = getEquipment(equipmentId);
-  if (!eq) return;
+function renderStrengthStep(step, e, idx, existing, isDone, date) {
+  let setsHtml = '';
+  for (let s = 0; s < step.sets; s++) {
+    const savedKg = existing?.sets?.[s]?.weight || '';
+    const savedReps = existing?.sets?.[s]?.reps || '';
+    const setDone = existing?.sets?.[s]?.done || false;
+    setsHtml += `
+      <div class="set-line">
+        <span class="set-label">세트 ${s+1}</span>
+        <input type="number" id="kg-${idx}-${s}" value="${savedKg}" placeholder="kg" inputmode="decimal" step="0.5">
+        <span class="set-unit">kg</span>
+        <input type="number" id="reps-${idx}-${s}" value="${savedReps || step.reps}" placeholder="${step.reps}" inputmode="numeric">
+        <span class="set-unit">회</span>
+        <button class="set-check-btn ${setDone ? 'checked' : ''}" id="setbtn-${idx}-${s}"
+          onclick="toggleSet(${idx},${s},'${date}','${step.equipId}',${step.sets})">
+          ${setDone ? '✓' : ''}
+        </button>
+      </div>`;
+  }
 
-  currentModalEquipment = eq;
-
-  document.getElementById('modal-title').textContent = eq.name;
-  document.getElementById('modal-subtitle').textContent = eq.labelKo + ' · ' + eq.units + '대';
-
-  // YouTube 동영상
-  const videoDiv = document.getElementById('modal-video');
-  const videoUrl = `https://www.youtube.com/embed/${eq.youtubeId}`;
-  const searchUrl = `https://www.youtube.com/results?search_query=${eq.youtubeSearch}`;
-  videoDiv.innerHTML = `
-    <iframe src="${videoUrl}"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      onerror="this.parentElement.innerHTML='<a href=\\'${searchUrl}\\' target=\\'_blank\\' style=\\'color:white;text-align:center;display:block;padding-top:25%\\'>YouTube에서 검색하기</a>'">
-    </iframe>
-  `;
-
-  document.getElementById('modal-date').value = getTodayStr();
-  loadModalSets();
-  document.getElementById('equipment-modal').classList.add('open');
+  return `
+    <div class="step-card ${isDone ? 'done' : ''}" id="step-${idx}">
+      <div class="step-main" onclick="toggleDetail(${idx})">
+        <div class="step-check">${isDone ? '✓' : ''}</div>
+        <div class="step-info">
+          <div class="step-order">STEP ${idx+1} · ${step.label}</div>
+          <div class="step-name">${e.name}</div>
+          <div class="step-target">${step.sets}세트 × ${step.reps}회</div>
+        </div>
+        <button class="step-video-btn" onclick="event.stopPropagation();openVideo('${step.equipId}')">▶️</button>
+      </div>
+      <div class="step-detail" id="detail-${idx}">
+        ${setsHtml}
+      </div>
+    </div>`;
 }
 
-function loadModalSets() {
-  const date = document.getElementById('modal-date').value;
+function toggleDetail(idx) {
+  const el = document.getElementById('detail-' + idx);
+  el.classList.toggle('open');
+}
+
+// 근력 세트 체크
+function toggleSet(stepIdx, setIdx, date, equipId, totalSets) {
   const logs = loadLogs();
-  const existing = logs.find(l =>
-    l.date === date && l.equipmentId === currentModalEquipment.id && l.user === currentUser
-  );
+  let entry = logs.find(l => l.date === date && l.equipmentId === equipId && l.user === currentUser);
 
-  const setsDiv = document.getElementById('modal-sets');
-  setsDiv.innerHTML = '';
-
-  if (currentModalEquipment.category === 'cardio') {
-    if (existing && existing.sets.length > 0) {
-      existing.sets.forEach((s, i) => addCardioSetRow(s.duration || '', s.distance || '', s.speed || ''));
-    } else {
-      addCardioSetRow('', '', '');
-    }
-  } else {
-    if (existing && existing.sets.length > 0) {
-      existing.sets.forEach((s, i) => addStrengthSetRow(s.weight || '', s.reps || ''));
-    } else {
-      addStrengthSetRow('', '');
-      addStrengthSetRow('', '');
-      addStrengthSetRow('', '');
-    }
-  }
-}
-
-function addStrengthSetRow(weight, reps) {
-  const setsDiv = document.getElementById('modal-sets');
-  const idx = setsDiv.children.length + 1;
-  const row = document.createElement('div');
-  row.className = 'set-row';
-  row.innerHTML = `
-    <span class="set-label">세트 ${idx}</span>
-    <input type="number" placeholder="무게" value="${weight}" class="input-weight" inputmode="decimal" step="0.5">
-    <span class="set-unit">kg</span>
-    <input type="number" placeholder="횟수" value="${reps}" class="input-reps" inputmode="numeric">
-    <span class="set-unit">회</span>
-    <button class="set-delete" onclick="removeSetRow(this)">&times;</button>
-  `;
-  setsDiv.appendChild(row);
-}
-
-function addCardioSetRow(duration, distance, speed) {
-  const setsDiv = document.getElementById('modal-sets');
-  const row = document.createElement('div');
-  row.className = 'set-row';
-  row.innerHTML = `
-    <input type="number" placeholder="시간" value="${duration}" class="input-duration" inputmode="numeric">
-    <span class="set-unit">분</span>
-    <input type="number" placeholder="거리" value="${distance}" class="input-distance" inputmode="decimal" step="0.1">
-    <span class="set-unit">km</span>
-    <input type="number" placeholder="속도" value="${speed}" class="input-speed" inputmode="decimal" step="0.1">
-    <span class="set-unit">km/h</span>
-    <button class="set-delete" onclick="removeSetRow(this)">&times;</button>
-  `;
-  setsDiv.appendChild(row);
-}
-
-function addSetRow() {
-  if (!currentModalEquipment) return;
-  if (currentModalEquipment.category === 'cardio') {
-    addCardioSetRow('', '', '');
-  } else {
-    addStrengthSetRow('', '');
-  }
-}
-
-function removeSetRow(btn) {
-  const row = btn.closest('.set-row');
-  row.remove();
-  const setsDiv = document.getElementById('modal-sets');
-  setsDiv.querySelectorAll('.set-row').forEach((r, i) => {
-    const label = r.querySelector('.set-label');
-    if (label) label.textContent = `세트 ${i + 1}`;
-  });
-}
-
-function saveSets() {
-  if (!currentModalEquipment) return;
-
-  const date = document.getElementById('modal-date').value;
-  const setsDiv = document.getElementById('modal-sets');
-  const rows = setsDiv.querySelectorAll('.set-row');
-  const sets = [];
-
-  if (currentModalEquipment.category === 'cardio') {
-    rows.forEach(row => {
-      const duration = parseFloat(row.querySelector('.input-duration')?.value) || 0;
-      const distance = parseFloat(row.querySelector('.input-distance')?.value) || 0;
-      const speed = parseFloat(row.querySelector('.input-speed')?.value) || 0;
-      if (duration > 0 || distance > 0) {
-        sets.push({ duration, distance, speed });
-      }
-    });
-  } else {
-    rows.forEach(row => {
-      const weight = parseFloat(row.querySelector('.input-weight')?.value) || 0;
-      const reps = parseInt(row.querySelector('.input-reps')?.value) || 0;
-      if (weight > 0 || reps > 0) {
-        sets.push({ weight, reps });
-      }
-    });
-  }
-
-  if (sets.length === 0) {
-    showToast('기록할 세트를 입력해주세요');
-    return;
-  }
-
-  const logs = loadLogs();
-  const existingIdx = logs.findIndex(l =>
-    l.date === date && l.equipmentId === currentModalEquipment.id && l.user === currentUser
-  );
-
-  const entry = {
-    date: date,
-    equipmentId: currentModalEquipment.id,
-    user: currentUser,
-    sets: sets,
-    updatedAt: new Date().toISOString()
-  };
-
-  if (existingIdx >= 0) {
-    logs[existingIdx] = entry;
-  } else {
+  if (!entry) {
+    entry = { date, equipmentId: equipId, user: currentUser, sets: [], done: false, updatedAt: new Date().toISOString() };
     logs.push(entry);
   }
 
+  // 세트 배열 확보
+  while (entry.sets.length <= setIdx) entry.sets.push({});
+
+  // kg, reps 읽기
+  const kgInput = document.getElementById(`kg-${stepIdx}-${setIdx}`);
+  const repsInput = document.getElementById(`reps-${stepIdx}-${setIdx}`);
+  const kg = parseFloat(kgInput?.value) || 0;
+  const reps = parseInt(repsInput?.value) || 0;
+
+  entry.sets[setIdx] = { weight: kg, reps, done: !entry.sets[setIdx]?.done };
+  entry.updatedAt = new Date().toISOString();
+
+  // 전체 세트 완료 여부 체크
+  let allDone = true;
+  for (let i = 0; i < totalSets; i++) {
+    if (!entry.sets[i]?.done) { allDone = false; break; }
+  }
+  entry.done = allDone;
+
   saveLogs(logs);
   saveLogToFirebase(entry);
-  showToast('저장되었습니다!');
-  closeModal();
-
-  const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
-  if (activeTab === 'today') renderTodayTab();
+  renderProgram();
 }
 
-function closeModal() {
-  document.getElementById('equipment-modal').classList.remove('open');
-  document.getElementById('modal-video').innerHTML = '';
-  currentModalEquipment = null;
-}
+// 유산소 완료
+function saveCardio(stepIdx, date, equipId) {
+  const durInput = document.getElementById(`cardio-dur-${stepIdx}`);
+  const distInput = document.getElementById(`cardio-dist-${stepIdx}`);
+  const duration = parseFloat(durInput?.value) || 0;
+  const distance = parseFloat(distInput?.value) || 0;
 
-function closeModalOverlay(event) {
-  if (event.target === event.currentTarget) closeModal();
-}
+  const logs = loadLogs();
+  let entry = logs.find(l => l.date === date && l.equipmentId === equipId && l.user === currentUser);
 
-document.getElementById('modal-date').addEventListener('change', function() {
-  if (currentModalEquipment) loadModalSets();
-});
-
-// ===== 탭2: 오늘의 기록 =====
-function renderTodayTab() {
-  const dateInput = document.getElementById('log-date');
-  if (!dateInput.value) dateInput.value = getTodayStr();
-
-  const date = dateInput.value;
-  const logs = loadLogs().filter(l => l.date === date);
-  const summaryDiv = document.getElementById('today-summary');
-
-  if (logs.length === 0) {
-    summaryDiv.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">📋</div>
-        <p>아직 기록이 없습니다</p>
-        <p>아래 버튼을 눌러 운동을 추가하세요</p>
-      </div>
-    `;
-    return;
+  if (!entry) {
+    entry = { date, equipmentId: equipId, user: currentUser, sets: [], done: false, updatedAt: new Date().toISOString() };
+    logs.push(entry);
   }
 
-  summaryDiv.innerHTML = logs.map(log => {
-    const eq = getEquipment(log.equipmentId);
-    if (!eq) return '';
+  entry.sets = [{ duration, distance }];
+  entry.done = !entry.done;
+  entry.updatedAt = new Date().toISOString();
 
-    const userLabel = log.user === 'husband' ? '🧔' : '👩';
-    const userClass = log.user;
-
-    let setsHtml = '';
-    if (eq.category === 'cardio') {
-      setsHtml = log.sets.map((s, i) =>
-        `<div class="set-row-display">
-          <span>${s.duration}분 / ${s.distance}km</span>
-          <span>${s.speed ? s.speed + 'km/h' : ''}</span>
-        </div>`
-      ).join('');
-    } else {
-      setsHtml = log.sets.map((s, i) =>
-        `<div class="set-row-display">
-          <span>세트 ${i + 1}</span>
-          <span>${s.weight}kg × ${s.reps}회</span>
-        </div>`
-      ).join('');
-    }
-
-    return `
-      <div class="today-card">
-        <div class="tc-header">
-          <div>
-            <div class="tc-title">${eq.name} <span class="hi-user ${userClass}">${userLabel}</span></div>
-            <div class="tc-subtitle">${eq.labelKo}</div>
-          </div>
-          <button class="tc-add-btn" onclick="openEquipmentModal('${eq.id}')">+</button>
-        </div>
-        ${setsHtml}
-      </div>
-    `;
-  }).join('');
+  saveLogs(logs);
+  saveLogToFirebase(entry);
+  showToast(entry.done ? '완료!' : '완료 취소');
+  renderProgram();
 }
 
-document.getElementById('log-date').addEventListener('change', renderTodayTab);
-
-// ===== 장비 선택 모달 =====
-function showEquipmentPicker() {
-  const pickerList = document.getElementById('picker-list');
-  let html = '';
-
-  html += '<div class="picker-category-title">🏃 유산소 머신</div>';
-  EQUIPMENT.filter(e => e.category === 'cardio').forEach(eq => {
-    html += `
-      <div class="picker-item" onclick="selectFromPicker('${eq.id}')">
-        <div>
-          <div class="pi-name">${eq.name}</div>
-          <div class="pi-label">${eq.labelKo}</div>
-        </div>
-      </div>
-    `;
-  });
-
-  html += '<div class="picker-category-title">💪 근력 머신</div>';
-  EQUIPMENT.filter(e => e.category === 'strength').forEach(eq => {
-    html += `
-      <div class="picker-item" onclick="selectFromPicker('${eq.id}')">
-        <div>
-          <div class="pi-name">${eq.name}</div>
-          <div class="pi-label">${eq.labelKo}</div>
-        </div>
-      </div>
-    `;
-  });
-
-  pickerList.innerHTML = html;
-  document.getElementById('picker-modal').classList.add('open');
-}
-
-function selectFromPicker(equipmentId) {
-  closePicker();
-  openEquipmentModal(equipmentId);
-}
-
-function closePicker() {
-  document.getElementById('picker-modal').classList.remove('open');
-}
-
-function closePickerOverlay(event) {
-  if (event.target === event.currentTarget) closePicker();
-}
-
-// ===== 탭3: 기록 보기 =====
-function renderHistoryTab() {
+// ===== 탭2: 기록 보기 =====
+function renderHistory() {
   const startDate = document.getElementById('history-start').value;
   const endDate = document.getElementById('history-end').value;
-  const equipFilter = document.getElementById('history-equipment-filter').value;
   const showBoth = document.getElementById('history-show-both')?.checked;
 
-  let logs = loadLogs();
-
-  // 사용자 필터
-  if (!showBoth) {
-    logs = logs.filter(l => l.user === currentUser);
-  }
-
-  // 날짜 필터
+  let logs = loadLogs().filter(l => l.done);
+  if (!showBoth) logs = logs.filter(l => l.user === currentUser);
   if (startDate) logs = logs.filter(l => l.date >= startDate);
   if (endDate) logs = logs.filter(l => l.date <= endDate);
 
-  // 장비 필터
-  if (equipFilter !== 'all') {
-    logs = logs.filter(l => l.equipmentId === equipFilter);
-  }
-
-  // 날짜별 그룹핑 (최신순)
-  logs.sort((a, b) => b.date.localeCompare(a.date) || a.equipmentId.localeCompare(b.equipmentId));
+  logs.sort((a, b) => b.date.localeCompare(a.date));
 
   const grouped = {};
-  logs.forEach(l => {
-    if (!grouped[l.date]) grouped[l.date] = [];
-    grouped[l.date].push(l);
-  });
+  logs.forEach(l => { if (!grouped[l.date]) grouped[l.date] = []; grouped[l.date].push(l); });
 
-  const listDiv = document.getElementById('history-list');
-
-  if (Object.keys(grouped).length === 0) {
-    listDiv.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">📊</div>
-        <p>기록이 없습니다</p>
-      </div>
-    `;
+  const div = document.getElementById('history-list');
+  if (!Object.keys(grouped).length) {
+    div.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><p>기록이 없습니다</p></div>';
     return;
   }
 
   let html = '';
   Object.keys(grouped).sort().reverse().forEach(date => {
-    html += `<div class="history-day-group">`;
-    html += `<div class="history-day-title">${formatDate(date)}</div>`;
-
+    html += `<div class="history-day-group"><div class="history-day-title">${formatDate(date)}</div>`;
     grouped[date].forEach(log => {
-      const eq = getEquipment(log.equipmentId);
-      if (!eq) return;
-
+      const e = eq(log.equipmentId);
+      if (!e) return;
       const userLabel = log.user === 'husband' ? '🧔 남편' : '👩 아내';
-      const userClass = log.user;
 
       let setsHtml = '';
-      if (eq.category === 'cardio') {
+      if (e.category === 'cardio') {
         setsHtml = log.sets.map(s =>
-          `<div class="set-row-display">
-            <span>${s.duration}분 / ${s.distance}km</span>
-            <span>${s.speed ? s.speed + 'km/h' : ''}</span>
-          </div>`
+          `<div class="set-row-display"><span>${s.duration || 0}분 / ${s.distance || 0}km</span></div>`
         ).join('');
       } else {
-        setsHtml = log.sets.map((s, i) =>
-          `<div class="set-row-display">
-            <span>세트 ${i + 1}</span>
-            <span>${s.weight}kg × ${s.reps}회</span>
-          </div>`
+        setsHtml = log.sets.filter(s => s.done).map((s, i) =>
+          `<div class="set-row-display"><span>세트 ${i+1}</span><span>${s.weight ? s.weight+'kg × ' : ''}${s.reps}회</span></div>`
         ).join('');
       }
 
       html += `
         <div class="history-item">
           <div class="hi-header">
-            <span class="hi-name">${eq.name} <small style="color:#6E6E73">${eq.labelKo}</small></span>
-            <span class="hi-user ${userClass}">${userLabel}</span>
+            <span class="hi-name">${e.name}</span>
+            <span class="hi-user ${log.user}">${userLabel}</span>
             <button class="hi-delete" onclick="deleteLog('${date}','${log.equipmentId}','${log.user}')">삭제</button>
           </div>
           ${setsHtml}
-        </div>
-      `;
+        </div>`;
     });
-
-    html += `</div>`;
+    html += '</div>';
   });
 
-  listDiv.innerHTML = html;
+  div.innerHTML = html;
 }
 
-function deleteLog(date, equipmentId, user) {
+function deleteLog(date, equipId, user) {
   if (!confirm('이 기록을 삭제하시겠습니까?')) return;
-
-  let logs = loadLogs();
-  logs = logs.filter(l => !(l.date === date && l.equipmentId === equipmentId && l.user === user));
+  let logs = loadLogs().filter(l => !(l.date === date && l.equipmentId === equipId && l.user === user));
   saveLogs(logs);
-  deleteLogFromFirebase(date, equipmentId, user);
+  deleteLogFromFirebase(date, equipId, user);
   showToast('삭제되었습니다');
-  renderHistoryTab();
+  renderHistory();
 }
 
-// 필터 이벤트
-document.getElementById('history-start').addEventListener('change', renderHistoryTab);
-document.getElementById('history-end').addEventListener('change', renderHistoryTab);
-document.getElementById('history-equipment-filter').addEventListener('change', renderHistoryTab);
-document.getElementById('history-show-both').addEventListener('change', renderHistoryTab);
+document.getElementById('history-start').addEventListener('change', renderHistory);
+document.getElementById('history-end').addEventListener('change', renderHistory);
+document.getElementById('history-show-both').addEventListener('change', renderHistory);
 
-// 장비 필터 옵션 생성
-function populateEquipmentFilter() {
-  const select = document.getElementById('history-equipment-filter');
-  EQUIPMENT.forEach(eq => {
-    const opt = document.createElement('option');
-    opt.value = eq.id;
-    opt.textContent = `${eq.name} (${eq.labelKo})`;
-    select.appendChild(opt);
+// ===== 탭3: 운동 설명 =====
+function renderGuide() {
+  const cardioDiv = document.getElementById('guide-cardio');
+  const strengthDiv = document.getElementById('guide-strength');
+  let cardioHtml = '', strengthHtml = '';
+
+  Object.entries(EQUIPMENT).forEach(([id, e]) => {
+    const card = `
+      <div class="guide-card" onclick="openVideo('${id}')">
+        <span class="gc-play">▶️</span>
+        <div>
+          <div class="gc-name">${e.name}</div>
+          <div class="gc-label">${e.labelKo}</div>
+        </div>
+      </div>`;
+    if (e.category === 'cardio') cardioHtml += card;
+    else strengthHtml += card;
   });
+
+  cardioDiv.innerHTML = cardioHtml;
+  strengthDiv.innerHTML = strengthHtml;
 }
+
+// ===== 동영상 모달 =====
+function openVideo(equipId) {
+  const e = eq(equipId);
+  if (!e) return;
+  document.getElementById('video-title').textContent = e.name;
+  document.getElementById('video-subtitle').textContent = e.labelKo;
+  document.getElementById('video-player').innerHTML = `
+    <iframe src="https://www.youtube.com/embed/${e.youtubeId}"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>`;
+  document.getElementById('video-modal').classList.add('open');
+}
+
+function closeVideo() {
+  document.getElementById('video-modal').classList.remove('open');
+  document.getElementById('video-player').innerHTML = '';
+}
+
+// ===== 날짜 변경 =====
+document.getElementById('log-date').addEventListener('change', renderProgram);
 
 // ===== 초기화 =====
 function initApp() {
   switchUser(currentUser);
-  renderEquipmentList();
-  populateEquipmentFilter();
-
   document.getElementById('log-date').value = getTodayStr();
 
   const today = getTodayStr();
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-  document.getElementById('history-start').value =
-    thirtyDaysAgo.getFullYear() + '-' +
-    String(thirtyDaysAgo.getMonth() + 1).padStart(2, '0') + '-' +
-    String(thirtyDaysAgo.getDate()).padStart(2, '0');
+  const ago = new Date(); ago.setDate(ago.getDate() - 30);
+  document.getElementById('history-start').value = ago.getFullYear() + '-' + String(ago.getMonth()+1).padStart(2,'0') + '-' + String(ago.getDate()).padStart(2,'0');
   document.getElementById('history-end').value = today;
 
-  // Firebase 동기화 시작
-  if (firebaseReady) {
-    // 기존 localStorage 데이터를 Firebase로 마이그레이션
-    const localLogs = loadLogs();
-    localLogs.forEach(entry => saveLogToFirebase(entry));
+  renderProgram();
 
-    // 실시간 동기화 리스너 시작
+  if (firebaseReady) {
+    loadLogs().forEach(e => saveLogToFirebase(e));
     startFirebaseSync();
   } else {
-    const statusEl = document.getElementById('sync-status');
-    if (statusEl) statusEl.textContent = '오프라인 모드 (Firebase 미설정)';
+    const el = document.getElementById('sync-status');
+    if (el) el.textContent = '오프라인 모드';
   }
 }
 

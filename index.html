@@ -10,7 +10,6 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
 </head>
 <body>
-  <!-- 헤더 -->
   <header id="app-header">
     <h1>JoyFit 아자부주반</h1>
     <div id="sync-status" class="sync-status"></div>
@@ -20,37 +19,28 @@
     </div>
   </header>
 
-  <!-- 탭 컨텐츠 영역 -->
   <main id="main-content">
-    <!-- 탭1: 운동기구 -->
-    <section id="tab-equipment" class="tab-content active">
-      <h2 class="section-title">🏃 유산소 머신</h2>
-      <div id="cardio-list" class="equipment-grid"></div>
-      <h2 class="section-title">💪 근력 머신</h2>
-      <div id="strength-list" class="equipment-grid"></div>
-    </section>
-
-    <!-- 탭2: 오늘의 기록 -->
-    <section id="tab-today" class="tab-content">
+    <!-- 탭1: 오늘의 운동 -->
+    <section id="tab-today" class="tab-content active">
       <div class="date-bar">
         <label for="log-date">날짜:</label>
         <input type="date" id="log-date">
       </div>
-      <div id="today-summary"></div>
-      <button class="btn-add-exercise" onclick="showEquipmentPicker()">+ 운동 추가</button>
+      <div id="progress-bar-wrap">
+        <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+        <span id="progress-text" class="progress-text"></span>
+      </div>
+      <div id="program-list"></div>
     </section>
 
-    <!-- 탭3: 기록 보기 -->
+    <!-- 탭2: 기록 보기 -->
     <section id="tab-history" class="tab-content">
       <div class="history-filters">
         <div class="filter-row">
-          <input type="date" id="history-start" placeholder="시작일">
+          <input type="date" id="history-start">
           <span>~</span>
-          <input type="date" id="history-end" placeholder="종료일">
+          <input type="date" id="history-end">
         </div>
-        <select id="history-equipment-filter">
-          <option value="all">전체 기구</option>
-        </select>
         <div class="filter-row">
           <label class="toggle-label">
             <input type="checkbox" id="history-show-both" checked> 두 사람 모두 보기
@@ -59,54 +49,40 @@
       </div>
       <div id="history-list"></div>
     </section>
+
+    <!-- 탭3: 운동 설명 -->
+    <section id="tab-guide" class="tab-content">
+      <h2 class="section-title">🏃 유산소 머신</h2>
+      <div id="guide-cardio"></div>
+      <h2 class="section-title">💪 근력 머신</h2>
+      <div id="guide-strength"></div>
+    </section>
   </main>
 
-  <!-- 하단 탭 바 -->
   <nav id="tab-bar">
-    <button class="tab-btn active" data-tab="equipment" onclick="switchTab('equipment')">
-      <span class="tab-icon">🏋️</span>
-      <span class="tab-label">운동기구</span>
-    </button>
-    <button class="tab-btn" data-tab="today" onclick="switchTab('today')">
-      <span class="tab-icon">📝</span>
-      <span class="tab-label">오늘의 기록</span>
+    <button class="tab-btn active" data-tab="today" onclick="switchTab('today')">
+      <span class="tab-icon">✅</span>
+      <span class="tab-label">오늘의 운동</span>
     </button>
     <button class="tab-btn" data-tab="history" onclick="switchTab('history')">
       <span class="tab-icon">📊</span>
       <span class="tab-label">기록 보기</span>
     </button>
+    <button class="tab-btn" data-tab="guide" onclick="switchTab('guide')">
+      <span class="tab-icon">📖</span>
+      <span class="tab-label">운동 설명</span>
+    </button>
   </nav>
 
-  <!-- 장비 상세 모달 -->
-  <div id="equipment-modal" class="modal-overlay" onclick="closeModalOverlay(event)">
+  <!-- 동영상 모달 -->
+  <div id="video-modal" class="modal-overlay" onclick="if(event.target===this)closeVideo()">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 id="modal-title"></h2>
-        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <h2 id="video-title"></h2>
+        <button class="modal-close" onclick="closeVideo()">&times;</button>
       </div>
-      <p id="modal-subtitle" class="modal-subtitle"></p>
-      <div id="modal-video" class="modal-video"></div>
-      <div class="modal-log-section">
-        <h3>운동 기록하기</h3>
-        <div class="date-bar">
-          <label for="modal-date">날짜:</label>
-          <input type="date" id="modal-date">
-        </div>
-        <div id="modal-sets"></div>
-        <button class="btn-add-set" onclick="addSetRow()">+ 세트 추가</button>
-        <button class="btn-save" onclick="saveSets()">저장</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 장비 선택 모달 -->
-  <div id="picker-modal" class="modal-overlay" onclick="closePickerOverlay(event)">
-    <div class="modal-content picker-content">
-      <div class="modal-header">
-        <h2>운동 선택</h2>
-        <button class="modal-close" onclick="closePicker()">&times;</button>
-      </div>
-      <div id="picker-list"></div>
+      <p id="video-subtitle" class="modal-subtitle"></p>
+      <div id="video-player" class="modal-video"></div>
     </div>
   </div>
 
